@@ -1,0 +1,149 @@
+Python Package Dependencies
+requirements
+opencv-python-headless==4.9.0.80
+face-recognition==1.3.0
+SpeechRecognition==3.10.0
+psycopg2-binary==2.9.9
+gTTS==2.4.0
+configparser==6.0.0
+numpy==1.26.4
+Pillow==10.2.0
+sqlalchemy==2.0.28
+sqlite3==2.6.0  # Usually included in Python standard library
+pickle5==0.0.12  # For Python < 3.8
+requests==2.31.0
+pyttsx3==2.90  # Offline TTS fallback
+python-dotenv==1.0.1
+
+  # Audio and Video Processing
+libatlas-base-dev
+libhdf5-dev
+libhdf5-serial-dev
+libjasper-dev
+libqtgui4
+libqt4-test
+libilmbase-dev
+libopenexr-dev
+libgstreamer1.0-dev
+libgstreamer-plugins-base1.0-dev
+libavcodec-dev
+libavformat-dev
+libswscale-dev
+libv4l-dev
+
+# Audio System
+libasound2-dev
+alsa-base
+alsa-utils
+espeak
+mpg123
+pulseaudio
+
+# Camera Support
+v4l-utils
+uvcdynctrl
+
+# For PostgreSQL support
+postgresql
+postgresql-contrib
+libpq-dev
+
+# For SQLite (usually included)
+sqlite3
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y \
+    libatlas-base-dev \
+    libhdf5-dev \
+    libhdf5-serial-dev \
+    libjasper-dev \
+    libqtgui4 \
+    libqt4-test \
+    libilmbase-dev \
+    libopenexr-dev \
+    libgstreamer1.0-dev \
+    libgstreamer-plugins-base1.0-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libv4l-dev \
+    libasound2-dev \
+    alsa-base \
+    alsa-utils \
+    espeak \
+    mpg123 \
+    pulseaudio \
+    v4l-utils \
+    uvcdynctrl \
+    postgresql \
+    postgresql-contrib \
+    libpq-dev \
+    sqlite3
+
+  Create Virtual Environment and Install Python Packages:
+
+bash
+python3 -m venv alpha_env
+source alpha_env/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+
+
+PostgreSQL Setup:
+
+bash
+sudo -u postgres psql
+CREATE DATABASE alpha_robot;
+CREATE USER jumpstart WITH PASSWORD 'your_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE alpha_robot TO jumpstart;
+
+
+ALSA Configuration:
+
+bash
+# /etc/asound.conf
+defaults.pcm.card 1
+defaults.ctl.card 1
+Camera Permissions:
+
+bash
+sudo usermod -aG video $USER
+sudo nano /etc/udev/rules.d/99-camera.rules
+# Add: SUBSYSTEM=="video0", GROUP="video", MODE="0666"
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+
+  optional Dependencies for Enhanced Functionality
+plaintext
+# For better face recognition performance
+libopenblas-dev
+liblapack-dev
+
+# For hardware acceleration
+libraspberrypi-dev
+Setup Verification
+After installation, run these commands to verify:
+
+Check Camera:
+
+bash
+v4l2-ctl --list-devices
+ffmpeg -f v4l2 -list_formats all -i /dev/video0
+
+
+  Check Audio:
+
+bash
+arecord -l
+aplay -l
+speaker-test -t wav -c 2
+Test Face Recognition:
+
+python
+import cv2
+print(cv2.__version__)
+cap = cv2.VideoCapture(0)
+ret, frame = cap.read()
+print("Camera working:", ret)
+cap.release()
