@@ -1,0 +1,68 @@
+
+
+1. Clone Repository & Open in VS Code
+bash
+git clone <repository_url>
+cd <project_directory>
+code .
+2. Create Virtual Environment
+bash
+# In VS Code terminal (Ctrl+`)
+python -m venv .venv
+3. Activate Virtual Environment
+Windows:
+
+bash
+.venv\Scripts\activate
+macOS/Linux:
+
+bash
+source .venv/bin/activate
+(VS Code may auto-detect and prompt to activate the environment)
+
+4. Install Dependencies
+bash
+pip install -r requirements.txt
+5. Configure VS Code Python Interpreter
+Open command palette (Ctrl+Shift+P)
+
+Select "Python: Select Interpreter"
+
+Choose the .venv virtual environment
+
+6. Configure Linting (Optional but Recommended)
+
+Install pylint in virtual environment:
+
+bash
+pip install pylint
+Enable linting in VS Code:
+
+Open command palette → "Preferences: Open Settings (JSON)"
+
+Add:
+
+json
+"python.linting.enabled": true,
+"python.linting.pylintEnabled": true
+7. Run the Application
+
+Method 1: Terminal
+
+bash
+python main.py
+Method 2: VS Code Run/Debug
+
+Open the main Python file
+
+Click "Run" (triangle icon) or press F5
+
+Select "Python File" configuration
+Key VS Code Extensions to Install:
+Python (official extension)
+
+Pylance (language server)
+
+Python Indent (correct auto-indentation)
+
+Python Test Explorer (if using tests)
